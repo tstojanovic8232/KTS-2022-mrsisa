@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+a.klijent:link {
+	color: #000;
+	text-decoration: none;
+}
+
+a.klijent:visited {
+	color: #999;
+	text-decoration: none;
+}
+
+a.klijent:hover {
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" th:src="${instruktor.linkSlike}" height="90px"
+						width="90px" style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji
+							o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel important">
+	<form method="post">
+		<table class="twothirds data">
+			<tr> <td>ID:</td><td th:text="${rezervacija.rezervacijaID}"></td>
+			<tr>
+				<td>Naziv usluge</td>
+				<td th:text="${rezervacija.nazivEntiteta}">Naziv vikendice</td>
+			</tr>
+			<tr>
+				<td>Klijent:</td>
+				<td th:text="${rezervacija.klijent}">Klijent</td>
+			</tr>
+			<tr>
+				<td>Datum početka:</td>
+				<td th:text="${rezervacija.datumPocetka}">Datum Početka</td>
+			</tr>
+			<tr>
+				<td>Datum kraja:</td>
+				<td th:text="${rezervacija.datumKraja}">Datum Kraja</td>
+			</tr>
+			<tr>
+				<td>Cena:</td>
+				<td th:text="${rezervacija.cena}">Cena</td>
+			</tr>
+			<tr><td colspan="3"><textarea name="izvjestaj" rows="10" cols="50" placeholder="Moj izveštaj"></textarea></td></tr>
+			<tr><td><br></td></tr>
+			<tr>
+				<td><button class="btn btn-success"
+					th:formaction="@{/instruktor/}+${id+'/upisiIzvestajRezervacija/'+rezervacija.rezervacijaID}">
+					Potvrdi</button>
+				</td>
+				<td><button class="btn btn-danger" 
+				th:formaction="@{/instruktor/}+${id+'/izvestajiRezervacija'}">
+						Odustani</button>
+				</td>
+				</tr>
+			</table>
+			
+			
+			
+		</form>
+		
+	</div>
+
+</body>
+</html>

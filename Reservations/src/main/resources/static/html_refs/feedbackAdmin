@@ -1,0 +1,12 @@
+ <section class="panel">
+    <h2>feedback</h2>
+    <div class="feedback">This is neutral feedback Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, praesentium. Libero perspiciatis quis aliquid iste quam dignissimos, accusamus temporibus ullam voluptatum, tempora pariatur, similique molestias blanditiis at sunt earum neque.</div>
+    <div class="feedback error">This is warning feedback
+<ul>
+  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+  <li>Aliquam tincidunt mauris eu risus.</li>
+  <li>Vestibulum auctor dapibus neque.</li>
+</ul>  </div>
+    <div class="feedback success">This is positive feedback</div>
+
+  </section>

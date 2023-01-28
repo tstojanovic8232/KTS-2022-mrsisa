@@ -1,0 +1,75 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Izvještaj o poslovanju u periodu</title>
+
+<link rel="stylesheet" th:href="@{/css/moje_vikendice.css}"
+	href="/css/moje_vikendice.css"></link>
+<link rel="stylesheet" th:href="@{/css/moje_vikendice.css}"
+href="/css/moje_vikendice.css"></link>
+<link rel="stylesheet" href="/css/spisak_rezervacija.css"/>
+<style>
+			.naslov
+			{
+				background-color: #a9afb8;
+				font-size: 40px;
+				color: #3886e8;
+				font-weight: 100;
+				line-height: 50px;
+				letter-spacing: 0.5px;
+				margin: 20px 0 30px;
+			}
+			.opis
+			{
+				color: black;
+				margin: 5px
+			}
+</style>
+</head>
+
+<body>
+	<div><h2 class="naslov" th:text="${'Prihodi u periodu:'+period.pocetniDatum}+${'-'+period.krajnjiDatum}"></h2></div>
+	<!--main role="main"-->
+		<div class="col md-8">
+			<div class="row justify-content-center">
+			<form name="unosPerioda">
+				<div class="block">
+					<label class="opis" for="pocetniDatum">Početni datum: </label>
+					<input class="opis" id="pocetniDatum" type="date" name="pocetniDatum" value="">
+				
+					<label class="opis" for="krajnjiDatum">Krajnji datum: </label>
+					<input class="opis" id="krajnjiDatum" type="date"  name="krajnjiDatum" value="">
+				
+				
+					<!--input th:formaction="@{/admin/izvestaji/print}" type="submit" value="Odstampaj" /-->
+					<input class="btn btn-primary" th:formaction="@{/brodVlasnik/izvjestajPoslovanjaPeriod/}+${vlasnikBroda.ID}" type="submit" value="Prikaži" />
+				</div>
+				<br><br><br>
+			</form>
+			</div>
+		</div>
+		<table >
+	  <tr >
+	    <th >Naziv broda</th>
+	    <th>Ocjena</th>
+	    <th>Broj rezervacija</th>
+	    <th>Ukupna zarada</th>
+	    <th>Prihod</th>
+	  </tr>
+	  <tr th:each="poslov:${poslovanja}">
+	    <td th:text="${poslov.nazivEntiteta}"></td>
+	    <td th:text="${poslov.ocjenaEntiteta}" ></td>
+	    <td th:text="${poslov.brojRezervacija}" ></td>
+	    <td th:text="${poslov.zarada}"></td>
+	    <td th:text="${poslov.prihod}"></td>
+	  </tr>
+	  
+	</table>
+	<!-- /main-->
+</body>
+</html>

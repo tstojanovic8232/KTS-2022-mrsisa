@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" th:src="${user.linkSlike}" height="90px"
+						width="90px" style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji
+							o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="panel important">
+		<table id="hide" class="twothirds">
+			<tr>
+				<td><img height="200px" width="200px"
+					th:src="${user.linkSlike}"></img></td>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td>Ime</td>
+				<td th:text="${user.ime}">Ime</td>
+			</tr>
+			<tr>
+				<td>Prezime</td>
+				<td th:text="${user.prezime}">Prezime</td>
+			</tr>
+			<tr>
+				<td>Korisnicko ime</td>
+				<td th:text="${user.korisnickoIme}">Korisnicko ime</td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td th:text="${user.email}">Email</td>
+			</tr>
+			<tr>
+				<td>Broj telefona</td>
+				<td th:text="${user.brojTel}">Broj telefona</td>
+			</tr>
+			<tr>
+				<td>Adresa</td>
+				<td th:text="${user.adresa}">Adresa</td>
+			</tr>
+			<tr>
+				<td>Grad</td>
+				<td th:text="${user.grad}">Grad</td>
+			</tr>
+			<tr>
+				<td>Drzava</td>
+				<td th:text="${user.drzava}">Drzava</td>
+			</tr>
+		</table>
+
+	</div>
+
+</body>
+</html>

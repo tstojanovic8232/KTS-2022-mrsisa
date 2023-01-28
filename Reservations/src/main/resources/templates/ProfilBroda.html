@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<style>
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}
+button{
+	margin-left:140px;
+}​
+</style>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+   <script th:inline="javascript">
+  /*<![CDATA[*/
+	var datumi = /*[[${datumi}]]*/ 'default';
+	
+	/*]]>*/
+$( function() {
+  $( "#datepicker" ).datepicker();
+  
+} );
+$( function() {
+	  
+	  
+
+	  $('#datepicker2').datepicker({
+	      beforeShowDay: function(date){
+	          var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+	          return [ datumi.indexOf(string) == -1 ]
+	      }
+	  });
+	  } );
+  
+  </script>
+<meta charset="UTF-8">
+<title>Profil usluge</title>
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/index.css}">
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/uslugaProfil.css" th:href="@{/css/uslugaProfil.css}">
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+			
+
+				<ul class="nav">
+					  <li><a th:href="@{/profilKorisnika/}+${kor.ID}">Pocetna</a></li>
+					<li><a th:href="@{/login}">Log in</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<main>
+		<div class="container">
+			<div class="grid product">
+				<div class="column-xs-12 column-md-7">
+					<div class="product-gallery">
+						<div class="product-image">
+								<img th:src="${brod.linkSlike}">
+						</div>
+					</div>
+				</div>
+				<div class="column-xs-12 column-md-5">
+<form>
+				
+				<div class="block">
+    <label>Datum pocetka:</label>
+    <input type="text" readonly id="datepicker2"  name="datum"/>
+</div>
+<br>
+<div class="block">
+<label for="appt-time">Choose an appointment time: </label>
+<input id="appt-time" type="time" name="vreme" value="13:30">
+</div>
+
+
+<br>
+<div class="block">
+    <label>Trajanje:</label>
+    <input type="number" min="1" max="6" name="trajanje" />
+  
+</div>
+<br>
+<div class="block">
+    <label>Broj osoba:</label>
+    <input type="number"  min="1"  name="maxOsoba" />
+  
+</div>
+
+
+ 
+					<h1 th:text="${brod.tip}">Naziv</h1>
+					<h2 th:text="${brod.cena + ' din'}">Cena</h2>
+					<div class="description">
+						<p th:text="${'Adresa: ' + brod.snaga}">Adresa</p>
+						<br />
+						<p th:text="${'Broj osoba: ' + brod.kapacitet}">Broj osoba</p>
+						<br />
+						<p th:text="${'Opis: ' + brod.opis}">Opis</p>
+						<br />
+					
+					</div>
+					 <button  class="btn btn-primary profile-button" th:formaction="@{/rezervacije/rezervisiBrod/}+${brod.ID+'/'}+${kor.ID}" align="right"  >Rezervisi</button>
+					 
+					  <button  class="btn btn-primary profile-button" align="right" th:formaction="@{/pretplataUsluga/}+${kor.ID+'/'}+${brod.ID}">Pretplata</button>
+			</form>
+				</div>
+				
+			</div>
+			
+			<div class="grid related-products">
+				<div class="column-xs-12">
+					<h3>Ovaj instruktor nudi i...</h3>
+				</div>
+				<div class="column-xs-12 column-md-4"  th:each="vik : ${vikVlas}">
+					<img th:src="${brod.linkSlike}">
+					<h4 th:text="${brod.naziv}">Naziv</h4>
+					<p class="price"  th:text="${brod.cena + ' din'}">Cena</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

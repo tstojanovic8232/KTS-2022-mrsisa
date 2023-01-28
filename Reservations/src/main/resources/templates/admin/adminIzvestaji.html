@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Administrator</title>
+
+<link rel="stylesheet" th:href="@{/css/adminProfile.css}"
+	href="/css/adminProfile.css">
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+</head>
+<body>
+	<header role="banner">
+		<h1>Profil administratora</h1>
+		<ul class="utilities">
+			<li class="user"><a th:href="@{/admin/}+${id+'/profil'}">Moji
+					podaci</a></li>
+			<li class="logout warn"><a th:href="@{/login}">Log out</a></li>
+		</ul>
+	</header>
+
+	<nav role="navigation">
+		<ul class="main">
+			<li class="preview"><a th:href="@{/admin/}+${id+'/pregled'}">Prikaz
+					svih entiteta</a></li>
+			<li class="euro"><a th:href="@{/admin/}+${id+'/prihodi'}">Evidencija
+					prihoda</a></li>
+			<li class="reports"><a th:href="@{/admin/}+${id+'/izvestaji'}">Prikaz
+					izvestaja</a></li>
+			<li class="admin"><a
+				th:href="@{/admin/}+${id+'/administratori'}">Dodaj novog
+					administratora</a></li>
+			<li class="home"><a th:href="@{/admin/}+${id}">Nazad na
+					početnu</a></li>
+		</ul>
+	</nav>
+
+
+	<main role="main">
+		<section class="panel important">
+			<form>
+				<div class="onethird">
+					<label class="opis" for="pocetniDatum">Početni datum: </label> <input
+						class="opis" id="pocetniDatum" type="date" name="pocetniDatum"
+						value="" required>
+				</div>
+
+				<div class="onethird">
+					<label class="opis" for="krajnjiDatum">Krajnji datum: </label> <input
+						class="opis" id="krajnjiDatum" type="date" name="krajnjiDatum"
+						value="" required>
+				</div>
+
+				<div class="onethird">
+					<input th:formaction="@{/admin/}+${id+'/izvestaji/print'}" type="submit"
+						value="Prikazi" />
+				</div>
+			</form>
+
+		</section>
+		<section class="panel important">
+			<select id="odabirGrafika" onchange="prikazi_grafik()">
+				<option value="grafikSedmica">Sedmični</option>
+				<option value="grafikMjesec">Mesečni</option>
+				<option value="grafikGodina">Godišnji</option>
+			</select>
+
+			<canvas class="twothirds" id="grafikSedmica" width="200px"
+				height="200px"></canvas>
+			<canvas class="twothirds" style="display: none;" id="grafikMjesec"
+				width="200px" height="200px"></canvas>
+			<canvas style="display: none;" id="grafikGodina" width="200px"
+				height="200px"></canvas>
+
+			<script th:inline="javascript">
+	
+	function prikazi_grafik()
+	{
+		var grafik = document.getElementById("odabirGrafika");
+		if(grafik.value=="grafikSedmica")
+		{
+			document.getElementById("grafikSedmica").style.display="block";
+			document.getElementById("grafikMjesec").style.display="none";
+			document.getElementById("grafikGodina").style.display="none";
+		}
+		else if(grafik.value=="grafikMjesec")
+		{
+			document.getElementById("grafikSedmica").style.display="none";
+			document.getElementById("grafikMjesec").style.display="block";
+			document.getElementById("grafikGodina").style.display="none";
+		}
+		else if(grafik.value=="grafikGodina")
+		{
+			document.getElementById("grafikSedmica").style.display="none";
+			document.getElementById("grafikMjesec").style.display="none";
+			document.getElementById("grafikGodina").style.display="block";
+		}
+	}
+	
+	/*<![CDATA[*/
+	var sedmicnaPoslovanja = /*[[${sedmicnaPoslovanja}]]*/ 'default';
+	var mjesecnaPoslovanja = /*[[${mjesecnaPoslovanja}]]*/ 'default';
+	var godisnjaPoslovanja = /*[[${godisnjaPoslovanja}]]*/ 'default';
+	var sedmicnaPoslovanjaLabele = /*[[${sedmicnaPoslovanjaLabele}]]*/ 'default';
+	var mjesecnaPoslovanjaLabele = /*[[${mjesecnaPoslovanjaLabele}]]*/ 'default';
+	var godisnjaPoslovanjaLabele = /*[[${godisnjaPoslovanjaLabele}]]*/ 'default';
+	/*]]>*/
+	
+	var sedmicneLabele = [];
+	var sedmicniPrihodi = [];
+	for(var poslovanje of sedmicnaPoslovanjaLabele)
+	{
+		sedmicneLabele.push(poslovanje);
+	}
+	console.log(sedmicneLabele);
+	for(var poslovanje of sedmicnaPoslovanja)
+	{
+		sedmicniPrihodi.push(poslovanje);
+	}
+	console.log(sedmicniPrihodi);
+	const ctx = document.getElementById('grafikSedmica').getContext('2d');
+	const sedmicniGraf = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: sedmicneLabele,
+	        datasets: [{
+	            label: 'Ukupan prihod po danu',
+	            data: sedmicniPrihodi,
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)',
+	                'rgba(102, 51, 0, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)',
+	                'rgba(102, 51, 0, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        responsive: true,
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+
+	var mjesecneLabele = [];
+	var mjesecniPrihodi = [];
+	for(var poslovanje of mjesecnaPoslovanjaLabele)
+	{
+		mjesecneLabele.push(poslovanje);
+	}
+	//console.log(sedmicneLabele);
+	for(var poslovanje of mjesecnaPoslovanja)
+	{
+		mjesecniPrihodi.push(poslovanje);
+	}
+	const ctx2 = document.getElementById('grafikMjesec').getContext('2d');
+	const mjesecniGraf = new Chart(ctx2, {
+	    type: 'bar',
+	    data: {
+	        labels: mjesecneLabele,
+	        datasets: [{
+	            label: 'Ukupan prihod u sedmici',
+	            data: mjesecniPrihodi,
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(102, 51, 0, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(102, 51, 0, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        responsive: true,
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+	
+
+	var godisnjeLabele = [];
+	var godisnjiPrihodi = [];
+	for(var poslovanje of godisnjaPoslovanjaLabele)
+	{
+		godisnjeLabele.push(poslovanje);
+	}
+	//console.log(sedmicneLabele);
+	for(var poslovanje of godisnjaPoslovanja)
+	{
+		godisnjiPrihodi.push(poslovanje);
+	}
+	const ctx3 = document.getElementById('grafikGodina').getContext('2d');
+	const godisnjiGraf = new Chart(ctx3, {
+	    type: 'bar',
+	    data: {
+	        labels: godisnjeLabele,
+	        datasets: [{
+	            label: 'Ukupan prihod u mjesecu',
+	            data: godisnjiPrihodi,
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)',
+	                'rgba(102, 51, 0, 0.2)',
+	                'rgba(0, 255, 255, 0.2)',
+	                'rgba(255, 51, 204, 0.2)',
+	                'rgba(0, 255, 0, 0.2)',
+	                'rgba(204, 51, 0, 0.2)',
+	                'rgba(102, 102, 153, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)',
+	                'rgba(102, 51, 0, 1)',
+	                'rgba(0, 255, 255, 1)',
+	                'rgba(255, 51, 204, 1)',
+	                'rgba(0, 255, 0, 1)',
+	                'rgba(204, 51, 0, 1)',
+	                'rgba(102, 102, 153, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        responsive: true,
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+	
+	
+	</script>
+
+		</section>
+	</main>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil usluge</title>
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/index.css}">
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/uslugaProfil.css" th:href="@{/css/uslugaProfil.css}">
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+			
+
+				<ul class="nav">
+					 <li><a th:href="@{/}">Pocetna</a></li>
+					<li><a th:href="@{/login}">Log in</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<main>
+		<div class="container">
+			<div class="grid product">
+				<div class="column-xs-12 column-md-7">
+					<div class="product-gallery">
+						<div class="product-image">
+							<img th:src="${brod.linkSlike}">
+						</div>
+					</div>
+				</div>
+				<div class="column-xs-12 column-md-5">
+					<h1 th:text="${brod.tip}">Naziv</h1>
+					<h2 th:text="${brod.cena + ' din'}">Cena</h2>
+					<div class="description">
+						<p th:text="${'Adresa: ' + brod.snaga}">Adresa</p>
+						<br />
+						<p th:text="${'Broj osoba: ' + brod.kapacitet}">Broj osoba</p>
+						<br />
+						<p th:text="${'Opis: ' + brod.opis}">Opis</p>
+						<br />
+					
+					</div>
+				</div>
+			</div>
+			<div class="grid related-products">
+				<div class="column-xs-12">
+					<h3>Ovaj instruktor nudi i...</h3>
+				</div>
+				<div class="column-xs-12 column-md-4"  th:each="brd : ${brodVlas}">
+					<img th:src="${brd.linkSlike}">
+					<h4 th:text="${brd.naziv}">Naziv</h4>
+					<p class="price"  th:text="${brd.cena + ' din'}">Cena</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

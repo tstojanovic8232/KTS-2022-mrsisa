@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+		<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" th:src="${instruktor.linkSlike}" height="90px" width="90px"
+						style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			
+
+	<div class="panel important">
+	<table class="twothirds">
+	  <tr >
+	    <th >Naziv usluge</th>
+	    <th>Ocena</th>
+	    <th>Broj rezervacija</th>
+	    <th>Ukupna zarada</th>
+	    <th>Prihod</th>
+	  </tr>
+	  <tr th:each="poslov:${poslovanja}">
+	    <td th:text="${poslov.nazivEntiteta}"></td>
+	    <td th:text="${poslov.ocjenaEntiteta}" ></td>
+	    <td th:text="${poslov.brojRezervacija}" ></td>
+	    <td th:text="${poslov.zarada}"></td>
+	    <td th:text="${poslov.prihod}"></td>
+	  </tr>
+	  
+	</table>
+</div>
+</body>
+</html>

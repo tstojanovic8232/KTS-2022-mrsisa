@@ -1,0 +1,81 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Administrator</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/adminProfile.css}"
+	href="/css/adminProfile.css">
+<body>
+	<header role="banner">
+		<h1>Profil administratora</h1>
+		<ul class="utilities">
+			<li class="user"><a th:href="@{/admin/}+${id+'/profil'}">Moji
+					podaci</a></li>
+			<li class="logout warn"><a th:href="@{/login}">Log out</a></li>
+		</ul>
+	</header>
+
+	<nav role="navigation">
+		<ul class="main">
+			<li class="preview"><a th:href="@{/admin/}+${id+'/pregled'}">Prikaz
+					svih entiteta</a></li>
+			<li class="euro"><a th:href="@{/admin/}+${id+'/prihodi'}">Evidencija
+					prihoda</a></li>
+			<li class="reports"><a th:href="@{/admin/}+${id+'/izvestaji'}">Prikaz
+					izvestaja</a></li>
+			<li class="admin"><a
+				th:href="@{/admin/}+${id+'/administratori'}">Dodaj novog
+					administratora</a></li>
+			<li class="home"><a th:href="@{/admin/}+${id}">Nazad na
+					početnu</a></li>
+		</ul>
+	</nav>
+
+	<main role="main">
+		<section class="panel important ">
+			<h2>Table</h2>
+			<table>
+				<tr>
+					<th>Rezervacija ID</th>
+					<th>Vrednost prihoda</th>
+					<th>Datum prihoda</th>
+				</tr>
+				<tr th:each="prihod : ${prihodi}">
+					<td th:text="${prihod.rezervacija}">17569</td>
+					<td th:text="${prihod.vrednost + ' din'}">€150</td>
+					<td th:text="${prihod.datum}">Oct 10, 2015</td>
+
+				</tr>
+			</table>
+		</section>
+		<section class="panel">
+			<h2>Procenat prihoda od rezervacija</h2>
+			<form th:action="@{/admin/}+${id+'/prihodi/procenat'}">
+				<div class="twothirds">
+					<label for="procenat">Promenite procenat prihoda:</label> <input
+						type="text" name="procenat" id="procenat" placeholder="0.xx" pattern="0\.[0-9]{1,2}"/> <input
+						type="submit" value="Submit" />
+				</div>
+				<div class="onethird">
+					<table>
+						<tr>
+							<th>Trenutna vrednost</th>
+						</tr>
+						<tr>
+							<td th:text="${procenatDec}">0.2</td>
+						</tr>
+						<tr>
+							<td th:text="${procenat}">20%</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</section>
+	</main>
+</body>
+</html>

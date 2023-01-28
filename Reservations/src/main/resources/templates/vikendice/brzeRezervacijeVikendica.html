@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>Brze rezervacije Vikendice</title>
+	<link rel="stylesheet" th:href="@{/css/pocetna.css}"
+	href="/css/pocetna.css"></link>
+	
+	<link rel="stylesheet" th:href="@{/css/moje_vikendice.css}"
+	href="/css/moje_vikendice.css"></link>
+		
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+</head>
+
+<body>
+
+<div class="container rounded bg-white mt-1 mb-5 ml-0">
+<div class="row justify-content-start">      
+	<input type="hidden" id="vlasnikID" name="vlasnikID" th:value="${vlasnikVikendice.ID}"></input>
+	<br></br><br></br>
+	<div class="col md-5">
+	<div class="row justify-content-center">
+		<form align="center">
+		  <input type="text" id="search" placeholder="Unesite naziv vikendice"></input>
+		  <button id="go"  th:onclick="myFunction()" > Search</button>
+		</form>	
+	</div>
+	<br></br>
+	<form>
+	<div align="center" class="column" th:each="vik:${vikendice}">
+	<div class="row">
+	<input type="hidden" id="vikendicaID" name="vikendicaID" th:value="${vik.ID}"></input>
+	<div class="container page-wrapper">
+	  <div class="page-inner">
+	      <div class="el-wrapper" th:alt="${vik.naziv.toLowerCase()}">
+	        <div class="box-up" th:alt="${vik.naziv.toLowerCase()}">
+	          <img class="img1"  th:src="${vik.linkSlike}" th:alt="${vik.naziv.toLowerCase()}"></img>
+	          <div class="img-info">
+	            <div class="info-inner">
+	              <span class="p-company"  th:text="${vik.naziv.toUpperCase()}">Zlatibor</span>
+	            </div>
+	          </div>
+	        </div>
+	            <div class="h-bg-inner"><button class="btn btn-success" th:formaction="@{/vikendice/brza-rezervacija/}+${vlasnikVikendice.ID+'/'}+${vik.ID}" target="glavni_prikaz">Brza rezervacija</button></div>
+	          </div>
+	        </div>
+	      </div>
+	      <br></br>
+	     </div>
+	    </div>
+	</form>
+	  </div>
+	</div>
+	</div>
+	  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>	
+<script th:inline="javascript">
+ function myFunction() {
+	  $('form').submit(function(e) {
+	  e.preventDefault(); 
+	  $('div img').hide();
+	  $('div img[alt*="' + $('#search').val() + '"]').show();
+	  $('div img[alt*="logo"]').show();
+	  
+	  
+	});
+	 $('form').submit(function(e) {
+	  e.preventDefault(); 
+	  $('.el-wrapper').hide();
+	  $('.el-wrapper[alt*="' + $('#search').val().toLowerCase() + '"]').show();
+	  
+	});
+	}
+    </script>
+	
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Administrator</title>
+<link rel="stylesheet" th:href="@{/css/adminProfile.css}"
+	href="/css/adminProfile.css">
+</head>
+<body>
+	<header role="banner">
+		<h1>Profil administratora</h1>
+		<ul class="utilities">
+			<li class="user"><a th:href="@{/admin/}+${id+'/profil'}">Moji
+					podaci</a></li>
+			<li class="logout warn"><a th:href="@{/login}">Log out</a></li>
+		</ul>
+	</header>
+
+	<nav role="navigation">
+		<ul class="main">
+			<li class="preview"><a th:href="@{/admin/}+${id+'/pregled'}">Prikaz
+					svih entiteta</a></li>
+			<li class="euro"><a th:href="@{/admin/}+${id+'/prihodi'}">Evidencija
+					prihoda</a></li>
+			<li class="reports"><a th:href="@{/admin/}+${id+'/izvestaji'}">Prikaz
+					izvestaja</a></li>
+			<li class="admin"><a
+				th:href="@{/admin/}+${id+'/administratori'}">Dodaj novog
+					administratora</a></li>
+			<li class="home"><a th:href="@{/admin/}+${id}">Nazad na
+					početnu</a></li>
+		</ul>
+	</nav>
+
+	<main role="main">
+		<section class="panel important">
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Klijent</th>
+					<th>Tekst zalbe</th>
+					<th>Rezervacija ID</th>
+				</tr>
+				<tr>
+					<td th:text="${zalba.ID}">ID</td>
+					<td th:text="${zalba.naziv}">Klijent</td>
+					<td th:text="${zalba.zalba}">Tekst zalbe</td>
+					<td th:text="${zalba.rezervacija.ID}">Rezervacija ID</td>
+				</tr>
+				</tr>
+			</table>
+		</section>
+		<section class="panel important">
+			<form
+				th:action="@{/admin/}+ ${id +'/zalba/'} + ${zalba.ID} + @{/submit}">
+				<div class="twothirds">
+					<label for="textarea">Odgovor na žalbu:</label>
+					<textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+				</div>
+				<div class="onethird">
+					 <input type="submit" value="Pošalji" />
+				</div>
+			</form>
+		</section>
+	</main>
+</body>
+</html>

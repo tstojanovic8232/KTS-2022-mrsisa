@@ -1,0 +1,192 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Administrator</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/adminProfile.css}"
+	href="/css/adminProfile.css">
+<body>
+	<header role="banner">
+		<h1>Profil administratora</h1>
+		<ul class="utilities">
+			<li class="user"><a th:href="@{/admin/}+${id+'/profil'}">Moji
+					podaci</a></li>
+			<li class="logout warn"><a th:href="@{/login}">Log out</a></li>
+		</ul>
+	</header>
+
+	<nav role="navigation">
+		<ul class="main">
+			<li class="preview"><a th:href="@{/admin/}+${id+'/pregled'}">Prikaz
+					svih entiteta</a></li>
+			<li class="euro"><a th:href="@{/admin/}+${id+'/prihodi'}">Evidencija
+					prihoda</a></li>
+			<li class="reports"><a th:href="@{/admin/}+${id+'/izvestaji'}">Prikaz
+					izvestaja</a></li>
+			<li class="admin"><a
+				th:href="@{/admin/}+${id+'/administratori'}">Dodaj novog
+					administratora</a></li>
+			<li class="home"><a th:href="@{/admin/}+${id}">Nazad na
+					početnu</a></li>
+		</ul>
+	</nav>
+
+
+	<main role="main">
+
+		<section class="panel important">
+			<table class="twothirds data">
+				<tr>
+					<td><img height="200px" width="200px"
+						th:src="${admin.linkSlike}"></img></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Ime</td>
+					<td th:text="${admin.ime}">Ime</td>
+				</tr>
+				<tr>
+					<td>Prezime</td>
+					<td th:text="${admin.prezime}">Prezime</td>
+				</tr>
+				<tr>
+					<td>Korisnicko ime</td>
+					<td th:text="${admin.korisnickoIme}">Korisnicko ime</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td th:text="${admin.email}">Email</td>
+				</tr>
+				<tr>
+					<td>Lozinka</td>
+					<td th:text="${admin.lozinka}">Lozinka</td>
+				</tr>
+				<tr>
+					<td>Broj telefona</td>
+					<td th:text="${admin.brojTel}">Broj telefona</td>
+				</tr>
+				<tr>
+					<td>Adresa</td>
+					<td th:text="${admin.adresa}">Adresa</td>
+				</tr>
+				<tr>
+					<td>Grad</td>
+					<td th:text="${admin.grad}">Grad</td>
+				</tr>
+				<tr>
+					<td>Drzava</td>
+					<td th:text="${admin.drzava}">Drzava</td>
+				</tr>
+			</table>
+			<div style="width: 33%">
+				<button class="open-button" onclick="openForm()">Izmeni
+					podatke</button>
+				<button class="open-button" onclick="passForm()">Promeni
+					lozinku</button>
+			</div>
+			<form class="form-container">
+				<table id="myForm" class="onethird data">
+					<tr>
+						<td>Korisnicko ime</td>
+						<td><input type="text" name="korisnickoIme"
+							th:placeholder="${admin.korisnickoIme}"></td>
+					</tr>
+					<tr>
+						<td>Ime</td>
+						<td><input type="text" name="ime"
+							th:placeholder="${admin.ime}"></td>
+					</tr>
+					<tr>
+						<td>Prezime</td>
+						<td><input type="text" name="prezime"
+							th:placeholder="${admin.prezime}"></td>
+					</tr>
+					<tr>
+						<td>Broj telefona</td>
+						<td><input type="text" name="brojTel"
+							th:placeholder="${admin.brojTel}"></td>
+					</tr>
+					<tr>
+						<td>Adresa</td>
+						<td><input type="text" name="adresa"
+							th:placeholder="${admin.adresa}"></td>
+					</tr>
+					<tr>
+						<td>Grad</td>
+						<td><input type="text" name="grad"
+							th:placeholder="${admin.grad}"></td>
+					</tr>
+					<tr>
+						<td>Drzava</td>
+						<td><input type="text" name="drzava"
+							th:placeholder="${admin.drzava}"></td>
+					</tr>
+					<tr>
+						<td><button class="btn"
+								th:formaction="@{/admin/}+${id + '/profil/azuriraj'}">
+								<i class="fa fa-check" aria-hidden="true"></i>
+							</button></td>
+						<td><button type="button" class="btn cancel"
+								onclick="closeForm()">
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</button></td>
+					</tr>
+				</table>
+			</form>
+			<form class="form-container" method="post">
+				<table id="passForm" class="onethird data">
+					<tr>
+						<td>Stara lozinka</td>
+						<td><input id="staraLozinka" name="staraLozinka"
+							type="password" required></td>
+					</tr>
+					<tr>
+						<td>Nova lozinka</td>
+						<td><input id="novaLozinka" name="novaLozinka"
+							type="password" required></td>
+					</tr>
+					<tr>
+						<td>Ponovo ukucaj novu lozinku</td>
+						<td><input id="novaPonovo" name="novaPonovo" type="password"
+							required></td>
+					</tr>
+					<tr>
+						<td><button id="lozinka" class="btn"
+								th:formaction="@{/admin/}+${id + '/profil/promeniLozinku'}"
+								onclick="validate()">
+								<i class="fa fa-check" aria-hidden="true"></i>
+							</button></td>
+						<td><button type="button" class="btn cancel"
+								onclick="closePassForm()">
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</button></td>
+					</tr>
+				</table>
+			</form>
+		</section>
+
+	</main>
+	<script>
+		function openForm() {
+			document.getElementById("myForm").style.display = "block";
+		}
+
+		function passForm() {
+			document.getElementById("passForm").style.display = "block";
+		}
+
+		function closeForm() {
+			document.getElementById("myForm").style.display = "none";
+		}
+
+		function closePassForm() {
+			document.getElementById("passForm").style.display = "none";
+		}
+	</script>
+</body>
+</html>

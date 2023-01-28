@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" src="/img/avatar.png" height="90px" width="90px"
+						style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="panel important">
+		<form method="post"
+			th:action="@{/instruktor/}+${id + '/novaBrzaRezervacija/dodaj'}">
+			<table class="container">
+				<tr>
+					<td>Usluga</td>
+					<td><select  name="entitetId" required>
+					<option th:each="usl : ${usluge}" th:value="${usl.ID}" th:text="${usl.naziv}"></option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Datum</td>
+					<td><input type="date" name="datum"
+						required/></td>
+				</tr>
+				<tr>
+					<td>Vreme</td>
+					<td><input type="time" name="vreme"
+						required/></td>
+				</tr>
+				<tr>
+					<td>Trajanje</td>
+					<td><input type="number" min="1"
+						name="trajanje" required/></td>
+				</tr>
+				<tr>
+					<td>Broj osoba</td>
+					<td><input type="number" min="1"
+						name="maxOsoba" required/></td>
+				</tr>
+				<tr>
+					<td>Cena</td>
+					<td><input type="text" name="cena"
+						pattern="\d*(?:\.\d*)?" required/></td>
+				</tr>
+				<tr>
+					<td>Popust</td>
+					<td><input type="number" name="akcija"
+						pattern="\d*(?:\.\d*)?" max="1" min="0.5" step="0.05" required/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Dodaj"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</body>
+</html>

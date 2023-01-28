@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spisak rezervacija</title>
+		<style>
+			.naslov
+			{
+				background-color: #a9afb8;
+				font-size: 40px;
+				color: #3886e8;
+				font-weight: 100;
+				line-height: 50px;
+				letter-spacing: 0.5px;
+				margin: 20px 0 30px;
+			}
+		</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+     <link id="u-theme-google-font" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/spisak_rezervacija.css"/>
+</head>
+<body>
+	<h1 class="naslov">Spisak rezervacija mojih vikendica</h1>
+	<form>
+	<input type="hidden" readonly th:value="${vlasnikVikendice.ID}" name="vlasnikID"></input>
+	<table >
+	  <tr >
+	    <th >Naziv vikendice</th>
+	    <th>Datum</th>
+	    <th>Vreme</th>
+	    <th>Cena</th>
+	    <th>Klijent</th>
+	  </tr>
+	  <tr th:each="rez:${rezervacije}">
+	    <td th:text="${rez.nazivEntiteta}"></td>
+	    <td th:text="${rez.datum}" ></td>
+	    <td th:text="${rez.vreme}" ></td>
+	    <td th:text="${rez.cena}"></td>
+	    <td><a th:href="@{/rezervacije/vlasnikVikendice/}+${vlasnikVikendice.ID}+'/profil-klijenta/'+${rez.klijentID}" th:text="${rez.klijent}"></a></td>
+	  </tr>
+	  
+	</table>
+		<button class="btn btn-primary"th:formaction="@{/vikendice/brze-rezervacije/}+${vlasnikVikendice.ID}">Brze rezervacije</button>
+	</form>
+</body>
+
+</html>

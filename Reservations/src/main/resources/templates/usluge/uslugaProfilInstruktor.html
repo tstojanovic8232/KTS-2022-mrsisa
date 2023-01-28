@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil usluge</title>
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/index.css}">
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/uslugaProfil.css" th:href="@{/css/uslugaProfil.css}">
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" src="/img/avatar.png" height="90px" width="90px"
+						style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<main>
+		<div class="container">
+			<div class="grid product">
+				<div class="column-xs-12 column-md-7">
+					<div class="product-gallery">
+						<div class="product-image">
+							<img th:src="${usluga.linkSlike}">
+						</div>
+					</div>
+				</div>
+				<div class="column-xs-12 column-md-5">
+					<h1 th:text="${usluga.naziv}">Naziv</h1>
+					<h2 th:text="${usluga.cena + ' din'}">Cena</h2>
+					<div class="description">
+						<p th:text="${'Adresa: ' + usluga.adresa}">Adresa</p>
+						<br />
+						<p th:text="${'Broj osoba: ' + usluga.maxOsoba}">Broj osoba</p>
+						<br />
+						<p th:text="${'Opis: ' + usluga.opis}">Opis</p>
+						<br />
+						<p th:text="${'O instruktoru: ' + usluga.biografijaInstruktora}">Biografija</p>
+					</div>
+				</div>
+			</div>
+			<a th:href="@{/instruktor/}+${id+'/usluga/'}+${usluga.ID+'/izmeni'}"><button
+					type="button"
+					style="float: left; cursor: pointer; margin: 0.75rem; margin-top: 1.5rem; padding: 0.75rem 1.5rem; font-size: 0.65rem; font-weight: bold; letter-spacing: 0.025rem; text-transform: uppercase; color: white; background-color: black; border: none;">Izmeni
+					uslugu</button></a> 
+			<a th:href="@{/instruktor/}+${id+'/usluga/'}+${usluga.ID+'/obrisi'}"><button
+					type="button"
+					style="float: left; cursor: pointer; margin: 0.75rem; margin-top: 1.5rem; padding: 0.75rem 1.5rem; font-size: 0.65rem; font-weight: bold; letter-spacing: 0.025rem; text-transform: uppercase; color: white; background-color: black; border: none;">Obriši
+					uslugu</button></a>
+		</div>
+	</main>
+</body>
+</html>

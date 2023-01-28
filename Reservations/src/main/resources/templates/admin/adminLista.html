@@ -1,0 +1,319 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Administrator</title>
+<link rel="stylesheet" th:href="@{/css/adminProfile.css}"
+	href="/css/adminProfile.css">
+<link rel="stylesheet" th:href="@{/css/adminEntities.css}"
+href="/css/adminEntities.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+	<header role="banner">
+		<h1>Profil administratora</h1>
+		<ul class="utilities">
+			<li class="user"><a th:href="@{/admin/}+${id+'/profil'}">Moji
+					podaci</a></li>
+			<li class="logout warn"><a th:href="@{/login}">Log out</a></li>
+		</ul>
+	</header>
+
+	<nav role="navigation">
+		<ul class="main">
+			<li class="preview"><a th:href="@{/admin/}+${id+'/pregled'}">Prikaz
+					svih entiteta</a></li>
+			<li class="euro"><a th:href="@{/admin/}+${id+'/prihodi'}">Evidencija
+					prihoda</a></li>
+			<li class="reports"><a th:href="@{/admin/}+${id+'/izvestaji'}">Prikaz
+					izvestaja</a></li>
+			<li class="admin"><a
+				th:href="@{/admin/}+${id+'/administratori'}">Dodaj novog
+					administratora</a></li>
+			<li class="home"><a th:href="@{/admin/}+${id}">Nazad na početnu</a></li>
+		</ul>
+	</nav>
+
+	<main role="main">
+	
+	
+	<section class="panel important">
+	<div class='tabs-card'>
+	
+	<input class='hide' type="radio" id="tab-1" name="tractor" checked='checked'/>
+	<label for='tab-1'>Klijenti</label>
+	<article class='tab-1'>
+		<section class="panel important">
+
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Ime</th>
+					<th>Prezime</th>
+					<th>Korisnicko ime</th>
+					<th>Lozinka</th>
+					<th>Email</th>
+					<th>Broj telefona</th>
+					<th>Adresa</th>
+					<th>Grad</th>
+					<th>Drzava</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "klijent : ${klijenti}">
+					<td th:text = "${klijent.ID}">ID</td>
+					<td th:text = "${klijent.ime}">Ime</td>
+					<td th:text = "${klijent.prezime}">Prezime</td>
+					<td th:text = "${klijent.korisnickoIme}">Korisnicko ime</td>
+					<td th:text = "${klijent.lozinka}">Lozinka</td>
+					<td th:text = "${klijent.email}">Email</td>
+					<td th:text = "${klijent.brojTel}">Broj telefona</td>
+					<td th:text = "${klijent.adresa}">Adresa</td>
+					<td th:text = "${klijent.grad}">Grad</td>
+					<td th:text = "${klijent.drzava}">Drzava</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/klijent/'+klijent.ID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i> </a></td>
+							</tr>
+			</table>
+		</section>
+	</article>
+	
+	<input class='hide' type="radio" id="tab-2" name="tractor"/>
+	<label for='tab-2'>Vlasnici vikendica</label>	
+	<article class='tab-2'>
+      
+      
+		<section class="panel important">
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Ime</th>
+					<th>Prezime</th>
+					<th>Korisnicko ime</th>
+					<th>Lozinka</th>
+					<th>Email</th>
+					<th>Broj telefona</th>
+					<th>Adresa</th>
+					<th>Grad</th>
+					<th>Drzava</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "vlasnik : ${vlasniciV}">
+					<td th:text = "${vlasnik.ID}">ID</td>
+					<td th:text = "${vlasnik.ime}">Ime</td>
+					<td th:text = "${vlasnik.prezime}">Prezime</td>
+					<td th:text = "${vlasnik.korisnickoIme}">Korisnicko ime</td>
+					<td th:text = "${vlasnik.lozinka}">Lozinka</td>
+					<td th:text = "${vlasnik.email}">Email</td>
+					<td th:text = "${vlasnik.brojTel}">Broj telefona</td>
+					<td th:text = "${vlasnik.adresa}">Adresa</td>
+					<td th:text = "${vlasnik.grad}">Grad</td>
+					<td th:text = "${vlasnik.drzava}">Drzava</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/vvlasnik/'+vlasnik.ID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i> </a></td>
+				</tr>
+			</table>
+		</section>
+	</article>
+	<input class='hide' type="radio" id="tab-3" name="tractor"/>
+	<label for='tab-3'>Vikendice</label>
+	<article class='tab-3'>		
+      <section class="panel important">
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Naziv</th>
+					<th>Adresa</th>
+					<th>Opis</th>
+					<th>Broj soba</th>
+					<th>Broj kreveta</th>
+					<th>Cena</th>
+					<th>Vlasnik ID</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "vikendica : ${vikendice}">
+					<td th:text = "${vikendica.ID}">ID</td>
+					<td th:text = "${vikendica.naziv}">Naziv</td>
+					<td th:text = "${vikendica.adresa}">Adresa</td>
+					<td th:text = "${vikendica.opis}">Opis</td>
+					<td th:text = "${vikendica.brojSoba}">Broj soba</td>
+					<td th:text = "${vikendica.brojKreveta}">Broj kreveta</td>
+					<td th:text = "${vikendica.cena}">Cena</td>
+					<td th:text = "${vikendica.vlasnik.ID}">Vlasnik ID</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/vikendica/'+vikendica.ID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i> </a></td>
+				</tr>
+			</table>
+		</section>
+	</article>
+
+	<input class='hide' type="radio" id="tab-4" name="tractor"/>
+	<label for='tab-4'>Vlasnici brodova</label>
+	
+	<article class='tab-4'>		
+      <section class="panel important">
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Ime</th>
+					<th>Prezime</th>
+					<th>Korisnicko ime</th>
+					<th>Lozinka</th>
+					<th>Email</th>
+					<th>Broj telefona</th>
+					<th>Adresa</th>
+					<th>Grad</th>
+					<th>Drzava</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "vlasnik : ${vlasniciB}">
+					<td th:text = "${vlasnik.ID}">ID</td>
+					<td th:text = "${vlasnik.ime}">Ime</td>
+					<td th:text = "${vlasnik.prezime}">Prezime</td>
+					<td th:text = "${vlasnik.korisnickoIme}">Korisnicko ime</td>
+					<td th:text = "${vlasnik.lozinka}">Lozinka</td>
+					<td th:text = "${vlasnik.email}">Email</td>
+					<td th:text = "${vlasnik.brojTel}">Broj telefona</td>
+					<td th:text = "${vlasnik.adresa}">Adresa</td>
+					<td th:text = "${vlasnik.grad}">Grad</td>
+					<td th:text = "${vlasnik.drzava}">Drzava</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/bvlasnik/'+vlasnik.ID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i> </a></td>
+				</tr>
+			</table>
+		</section>
+	</article>
+	<input class='hide' type="radio" id="tab-5" name="tractor"/>
+	<label for='tab-5'>Brodovi</label>
+	<article class='tab-5'>		
+      <section class="panel important">
+
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Naziv</th>
+					<th>Tip</th>
+					<th>Duzina</th>
+					<th>Broj motora</th>
+					<th>Snaga</th>
+					<th>Maksimalna brzina</th>
+					<th>Adresa</th>
+					<th>Opis</th>
+					<th>Cena</th>
+					<th>Navigaciona oprema</th>
+					<th>Kapacitet</th>
+					<th>Pecaroska oprema</th>
+					<th>Vlasnik ID</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "brod : ${brodovi}" th:with = "vlasnik = ${brod.vlasnik}">
+					<td th:text = "${brod.ID}">ID</td>
+					<td th:text = "${brod.naziv}">Naziv</td>
+					<td th:text = "${brod.tip}">Tip</td>
+					<td th:text = "${brod.duzina}">Duzina</td>
+					<td th:text = "${brod.brojMotora}">Broj motora</td>
+					<td th:text = "${brod.snaga}">Snaga</td>
+					<td th:text = "${brod.maxBrzina}">Maksimalna brzina</td>
+					<td th:text = "${brod.adresa}">Adresa</td>
+					<td th:text = "${brod.opis}">Opis</td>
+					<td th:text = "${brod.cena}">Cena</td>
+					<td th:text = "${brod.navigacionaOprema}">Navigaciona oprema</td>
+					<td th:text = "${brod.kapacitet}">Kapacitet</td>
+					<td th:text = "${brod.pecaroskaOprema}">Pecaroska oprema</td>
+					<td th:text = "${vlasnik.ID}">Vlasnik ID</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/brod/'+brod.ID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i> </a></td>
+				</tr>
+			</table>
+		</section>
+	</article>
+	
+	<input class='hide' type="radio" id="tab-6" name="tractor"/>
+	<label for='tab-6'>Instruktori pecanja</label>
+	<article class='tab-6'>		
+      <section class="panel important">
+
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Ime</th>
+					<th>Prezime</th>
+					<th>Korisnicko ime</th>
+					<th>Lozinka</th>
+					<th>Email</th>
+					<th>Broj telefona</th>
+					<th>Adresa</th>
+					<th>Grad</th>
+					<th>Drzava</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "instruktor : ${instruktori}">
+					<td th:text = "${instruktor.ID}">ID</td>
+					<td th:text = "${instruktor.ime}">Ime</td>
+					<td th:text = "${instruktor.prezime}">Prezime</td>
+					<td th:text = "${instruktor.korisnickoIme}">Korisnicko ime</td>
+					<td th:text = "${instruktor.lozinka}">Lozinka</td>
+					<td th:text = "${instruktor.email}">Email</td>
+					<td th:text = "${instruktor.brojTel}">Broj telefona</td>
+					<td th:text = "${instruktor.adresa}">Adresa</td>
+					<td th:text = "${instruktor.grad}">Grad</td>
+					<td th:text = "${instruktor.drzava}">Drzava</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/instruktor/'+instruktor.ID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i> </a></td>
+				</tr>
+			</table>
+		</section>
+	</article>
+		
+		<input class='hide' type="radio" id="tab-7" name="tractor" checked='checked'/>
+	<label for='tab-7'>Rezervacije</label>
+	<article class='tab-7'>
+		<section class="panel important">
+
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Naziv entiteta</th>
+					<th>Tip entiteta</th>
+					<th>Tip rezervacije</th>
+					<th>Klijent ID</th>
+					<th>Klijent</th>
+					<th>Datum</th>
+					<th>Vreme</th>
+					<th>Cena</th>
+					<th>Obrisi</th>
+				</tr>
+				<tr th:each = "rez : ${rezervacije}">
+					<td th:text = "${rez.rezervacijaID}">ID</td>
+					<td th:text = "${rez.nazivEntiteta}">Naziv entiteta</td>
+					<td th:text = "${rez.tipEntiteta}">Tip</td>
+					<td th:text = "${rez.tip}">Tip</td>
+					<td th:text = "${rez.klijentID}">Klijent ID</td>
+					<td th:text = "${rez.klijent}">Klijent</td>
+					<td th:text = "${rez.datum}">Datum</td>
+					<td th:text = "${rez.vreme}">Vreme</td>
+					<td th:text = "${rez.cena}">Cena</td>
+								<td><a
+									th:href="@{/admin/}+${id+'/obrisi/rezervacija/'+rez.rezervacijaID}"><i
+										class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+				</tr>
+			</table>
+		</section>
+	</article>
+	</div>
+	</section>
+	
+	</main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/PrikazKorisnika.js"></script>
+</body>
+</html>

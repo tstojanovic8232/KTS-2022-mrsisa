@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+<style>
+a.klijent:link {
+	color: #000;
+	text-decoration: none;
+}
+
+a.klijent:visited {
+	color: #999;
+	text-decoration: none;
+}
+
+a.klijent:hover {
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" th:src="${instruktor.linkSlike}" height="90px"
+						width="90px" style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id+'/osveziTermine'}">Osvezi
+							termine</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji
+							o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="panel important">
+		<h2>Periodi usluge</h2>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Datum početka</th>
+				<th>Datum kraja</th>
+			</tr>
+			<tr th:each="period:${periodi}">
+				<td th:text="${period.ID}"></td>
+				<td th:text="${period.datumPocetka}"></td>
+				<td th:text="${period.datumKraja}"></td>
+			</tr>
+		</table>
+		<a th:href="@{/instruktor/}+${id+'/noviPeriodDostupnosti/'+usluga.ID}"><button
+				type="button"
+				style="float: right; cursor: pointer; margin: 0.75rem; margin-top: 1.5rem; padding: 0.75rem 1.5rem; font-size: 0.65rem; font-weight: bold; letter-spacing: 0.025rem; text-transform: uppercase; color: white; background-color: black; border: none;">Dodaj
+				period</button></a>
+	</div>
+	<div class="panel important">
+		<h2>Termini rezervacija usluge</h2>
+		<table>
+			<!-- SAMO PRIKAZ!!! -->
+			<tr>
+				<th>ID</th>
+				<th>Tip rezervacije</th>
+				<th>Datum početka</th>
+				<th>Datum kraja</th>
+				<th>ID rezervacije</th>
+				<th>Rezervacija:</th>
+			</tr>
+			<tr th:each="termin:${termini}">
+				<td th:text="${termin.ID}"></td>
+				<td th:text="${termin.tipRezervacije}"></td>
+				<td th:text="${termin.datumPocetka}"></td>
+				<td th:text="${termin.datumKraja}"></td>
+				<td th:text="${termin.rezervacijaID}"></td>
+				<td><button type="submit" class="btn btn-primary">Prikaži
+						rezervaciju</button></td>
+			</tr>
+		</table>
+			</div>
+
+</body>
+</html>

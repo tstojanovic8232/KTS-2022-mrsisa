@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" src="/img/avatar.png" height="90px" width="90px"
+						style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="panel important">
+		<form method="post"
+			th:action="@{/instruktor/}+${id + '/noviPeriodDostupnosti/'+uslID+'/dodaj'}">
+			<input name="vlasnikID" th:value="${id}" hidden=true>
+			<input name="enteitetID" th:value="${uslID}" hidden=true>
+			<table class="container">
+				<tr>
+					<td>Datum pocetka</td>
+					<td><input type="date" name="datumPocetka"
+						required/></td>
+				</tr>
+				<tr>
+					<td>Datum kraja</td>
+					<td><input type="date" name="datumKraja"
+						required/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Dodaj"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head><meta charset="UTF-8"></meta>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link rel="stylesheet" th:href="@{/css/pocetna.css}"
+	href="/css/pocetna.css"></link>
+	<script>
+	var cijena = document.forms["unos"]["cena"].value;
+    var kapacitet = document.forms["unos"]["kapacitet"].value;
+	var brojMotora = document.forms["unos"]["brojMotora"].value;
+	var snaga = document.forms["unos"]["snaga"].value;
+	var maxBrzina = document.forms["unos"]["maxBrzina"].value;
+	var duzina = document.forms["unos"]["duzina"].value;
+	
+	function provjera_maxBrzine() 
+	{
+		if (!parseFloat(document.forms["unos"]["maxBrzina"].value)) 
+		{
+			alert("Najveća moguća brzina mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["maxBrzina"].value)===-1) 
+		{
+			alert("Najveća moguća brzina mora biti pozitivan broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["maxBrzina"].value)>-1 && 
+		Math.sign(document.forms["unos"]["kapacitet"].value)>-1 &&
+		Math.sign(document.forms["unos"]["brojMotora"].value)>-1 &&
+		Math.sign(document.forms["unos"]["duzina"].value)>-1 &&
+		Math.sign(document.forms["unos"]["snaga"].value)>-1)
+		{
+			document.forms["unos"]["maxBrzina"].value=parseFloat(document.forms["unos"]["maxBrzina"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	
+	function provjera_duzine() 
+	{
+		
+		
+		if (!parseFloat(document.forms["unos"]["duzina"].value)) 
+		{
+			alert("Dužina broda mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["duzina"].value)===-1) 
+		{
+			alert("Dužina broda mora biti pozitivan broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["maxBrzina"].value)>-1 && 
+		Math.sign(document.forms["unos"]["kapacitet"].value)>-1 &&
+		Math.sign(document.forms["unos"]["brojMotora"].value)>-1 &&
+		Math.sign(document.forms["unos"]["duzina"].value)>-1 &&
+		Math.sign(document.forms["unos"]["snaga"].value)>-1)
+		{
+			document.forms["unos"]["duzina"].value=parseFloat(document.forms["unos"]["duzina"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	function provjera_cijene() 
+	{
+		
+		
+		if (!parseFloat(document.forms["unos"]["cena"].value)) 
+		{
+			alert("Cijena mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)===-1) 
+		{
+			alert("Cijena mora biti pozitivan broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["maxBrzina"].value)>-1 && 
+		Math.sign(document.forms["unos"]["kapacitet"].value)>-1 &&
+		Math.sign(document.forms["unos"]["brojMotora"].value)>-1 &&
+		Math.sign(document.forms["unos"]["duzina"].value)>-1 &&
+		Math.sign(document.forms["unos"]["snaga"].value)>-1)
+		{
+			document.forms["unos"]["cena"].value=parseFloat(document.forms["unos"]["cena"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	function provjera_brojaMotora()
+	{
+				
+		if (!parseInt(document.forms["unos"]["brojMotora"].value)) 
+		{
+			alert("Broj motora mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["brojMotora"].value)===-1)
+		{
+			alert("Broj motora mora biti prirodan cijeli broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["maxBrzina"].value)>-1 && 
+		Math.sign(document.forms["unos"]["kapacitet"].value)>-1 &&
+		Math.sign(document.forms["unos"]["brojMotora"].value)>-1 &&
+		Math.sign(document.forms["unos"]["duzina"].value)>-1 &&
+		Math.sign(document.forms["unos"]["snaga"].value)>-1)
+		{
+			document.forms["unos"]["brojMotora"].value=parseInt(document.forms["unos"]["brojMotora"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	
+	
+	function provjera_snageMotora()
+	{
+				
+		if (!parseInt(document.forms["unos"]["snaga"].value)) 
+		{
+			alert("Snaga motora mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["snaga"].value)===-1)
+		{
+			alert("Snaga motora mora biti prirodan cijeli broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["maxBrzina"].value)>-1 && 
+		Math.sign(document.forms["unos"]["kapacitet"].value)>-1 &&
+		Math.sign(document.forms["unos"]["brojMotora"].value)>-1 &&
+		Math.sign(document.forms["unos"]["duzina"].value)>-1 &&
+		Math.sign(document.forms["unos"]["snaga"].value)>-1)
+		{
+			document.forms["unos"]["snaga"].value=parseInt(document.forms["unos"]["snaga"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	
+	function provjera_kapaciteta()
+	{
+				
+		if (!parseInt(document.forms["unos"]["kapacitet"].value)) 
+		{
+			alert("Kapacitet broda mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["kapacitet"].value)===-1)
+		{
+			alert("Kapacitet broda mora biti prirodan cijeli broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)===1 && 
+		Math.sign(document.forms["unos"]["maxBrzina"].value)===1 && 
+		Math.sign(document.forms["unos"]["kapacitet"].value)===1 &&
+		Math.sign(document.forms["unos"]["brojMotora"].value)===1 &&
+		Math.sign(document.forms["unos"]["duzina"].value)===1 &&
+		Math.sign(document.forms["unos"]["snaga"].value)===1)
+		{
+			document.forms["unos"]["kapacitet"].value=parseInt(document.forms["unos"]["kapacitet"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	
+	function dobavi_putanju_slike()
+	{
+			document.getElementById("naziv").value = document.getElementById("filepicker").value.substring(12);
+			document.getElementById("putanja").value = document.getElementById("filepicker").value;
+			console.log(document.getElementById("filepicker").value.substring(12));
+			console.log(document.getElementById("filepicker").value);
+			//console.log(document.getElementById("filepicker").value);
+			console.log(typeof(document.getElementById("filepicker")));
+	        //console.log($(this).val()); // This will print out the file path
+            //console.log(e.target.files[0]);
+	        
+	        
+	}
+	
+	function dobavi_putanju_slike2()
+	{
+			document.getElementById("naziv2").value = document.getElementById("filepicker2").value.substring(12);
+			document.getElementById("putanja2").value = document.getElementById("filepicker2").value;
+			console.log(document.getElementById("filepicker2").value.substring(12));
+			console.log(document.getElementById("filepicker2").value);
+			//console.log(document.getElementById("filepicker").value);
+			console.log(typeof(document.getElementById("filepicker2")));
+	        //console.log($(this).val()); // This will print out the file path
+            //console.log(e.target.files[0]);
+	        
+	        
+	}
+	</script>
+</head>
+<body>
+    <div class="p-3 py-5">
+       <div class="d-flex align-items-center mb-3">
+           <h4 class="text-left">Obriši Brod</h4>
+       </div>
+        <form enctype="multipart/form-data" th:object="${slika}" method="post" name="unos">
+        <div class="row mt-3 ">
+        <div class="col-md-7"><input readonly type="hidden" class="form-control" placeholder="Unesite ime" th:value="${vlasnikBroda.ID}" name="ID"></input></div>
+        <div class="col-md-8"><img height=200px class="img2" th:src="${brod.linkSlike}"></img>
+       	<img height=200px class="img2" th:src="${brod.linkKabine}"></img></div>
+        <div class="col-md-8"><label class="labels">Naziv</label><input readonly type="text"  class="form-control" placeholder="Unesite naziv" th:value="${brod.naziv}" name="naziv" required></input></div>
+        <div class="col-md-8"><label class="labels">Adresa</label><input readonly type="text" class="form-control" placeholder="Unesite adresu" th:value="${brod.adresa}" name="adresa"></input></div>
+        <div class="col-md-8"><label class="labels">Tip broda</label><input readonly type="text" class="form-control" placeholder="Unesite tip broda" th:value="${brod.tip}" name="tip"></input></div>
+        <div class="col-md-8"><label class="labels">Kapacitet broda</label><input readonly type="text" class="form-control" placeholder="Unesite kapacitet broda" th:value="${brod.kapacitet}" name="kapacitet" onchange="provjera_kapaciteta()"></input></div>
+        <div class="col-md-8"><label class="labels">Cijena</label><input readonly type="text" class="form-control" placeholder="Unesite cijenu" th:value="${brod.cena}" name="cena" onchange="provjera_cijene()"></input></div>
+        <div class="col-md-8"><label class="labels">Pravila ponašanja</label><input readonly type="text" class="form-control" placeholder="Unesite pravila ponasanja" th:value="${brod.pravilaPonasanja}" name="pravilaPonasanja"></input></div>
+        <div class="col-md-8"><label class="labels">Navigaciona oprema</label><input readonly type="text" class="form-control" placeholder="Unesite spisak navigacione opreme" th:value="${brod.navigacionaOprema}" name="navigacionaOprema"></input></div>
+        <div class="col-md-8"><label class="labels">Pecaroška oprema</label><input readonly type="text" class="form-control" placeholder="Unesite spisak pecaroške opreme" th:value="${brod.pecaroskaOprema}" name="pecaroskaOprema"></input></div>
+        <div class="col-md-8"><label class="labels">Opis</label><input readonly type="text" class="form-control" placeholder="Opisite brod" th:value="${brod.opis}" name="opis"></input></div>
+  		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" name="nazivSlike" id="naziv"></input></div>
+  		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" id="putanja"></input></div>
+  		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" name="nazivSlike2" id="naziv2"></input></div>
+  		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" name="putanja2" id="putanja2"></input></div>
+	<div class="mt-5 text-left"><button class="btn btn-primary profile-button" th:formaction="@{/brodovi/obrisi/}+${vlasnikBroda.ID+'/'}+${brod.ID}" type="submit" name="izmijeni-dugme">Obriši Brod</button>
+         </div>
+    </div></form>
+   </div>
+</body>
+</html>

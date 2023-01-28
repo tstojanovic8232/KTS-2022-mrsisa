@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<script>
+	function dobavi_putanju_slike() {
+		document.getElementById("naziv").value = document
+				.getElementById("filepicker").value.substring(12);
+		document.getElementById("putanja").value = document
+				.getElementById("filepicker").value;
+		console.log(document.getElementById("filepicker").value.substring(12));
+		console.log(document.getElementById("filepicker").value);
+		console.log(typeof (document.getElementById("filepicker")));
+
+	}
+</script>
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" src="/img/avatar.png" height="90px" width="90px"
+						style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/profil'}">Moj
+							profil</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija
+							rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="panel important">
+		<form enctype="multipart/form-data" th:object="${slika}" method="post"
+			th:action="@{/instruktor/}+${id + '/usluga/'}+${usluga.ID+'/izmena'}">
+			<table class="container">
+				<tr>
+					<td>Naziv</td>
+					<td><input type="text" th:placeholder="${usluga.naziv}" name="naziv"
+						pattern="[A-Za-z0-9 ]*" /></td>
+				</tr>
+				<tr>
+					<td>Adresa</td>
+					<td><input type="text" th:placeholder="${usluga.adresa}" name="adresa"
+						pattern="[A-Z][a-z]* \d{1,2}(?:\/\d{1,3})?" /></td>
+				</tr>
+				<tr>
+					<td>Opis</td>
+					<td><input type="text" th:placeholder="${usluga.opis}" name="opis"
+						pattern="[a-zA-Z]+" /></td>
+				</tr>
+				<tr>
+					<td>Broj osoba</td>
+					<td><input type="text" th:value="${usluga.maxOsoba}" th:placeholder="${usluga.maxOsoba}"
+						name="maxOsoba" pattern="\d{1,2}" /></td>
+				</tr>
+				<tr>
+					<td>Pecaroška oprema</td>
+					<td><input type="text" th:placeholder="${usluga.pecaroskaOprema}"
+						name="pecaroskaOprema" pattern="[a-zA-Z]+(?:, ?[a-zA-Z]+)*" /></td>
+				</tr>
+				<tr>
+					<td>Cena</td>
+					<td><input type="text" th:placeholder="${usluga.cena}" th:value="${usluga.cena}" name="cena"
+						pattern="\d*(?:\.\d*)?" /></td>
+				</tr>
+				<tr>
+					<td>Tip</td>
+					<td><select name="tip" th:value="${usluga.tip}" required>
+							<option value="null" selected disabled hidden>Tip usluge</option>
+							<option value="avantura">Avantura</option>
+							<option value="casovi_pecanja">Časovi pecanja</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Slika</td>
+					<td><input name="slika" type=file id="filepicker" th:placeholder="${usluga.linkSlike}"
+						onchange="dobavi_putanju_slike()" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+			<input type="hidden" class="form-control" value="" name="nazivSlike"
+				id="naziv"></input> <input type="hidden" class="form-control"
+				value="" id="putanja"></input>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>Reservations</title>
+  <meta http-equiv="content-type" content="text/html" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="/css/index.css" th:href="@{/css/index.css}" >
+</head>
+
+<body>
+<div class="hold">
+  <div class="header">
+    <div class="container">
+      <div id="logo">
+      <img alt="logo" src="/img/Logo.png" height="40px">
+      </div>
+       
+      <ul class="nav">
+        <li><a href="#">O nama</a></li>
+        <li><a href="#">Kontakt</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="slider">
+    <div class="container slidercontent">
+      <h1 class="hero">Dobro došli</h1>
+      <h2 class="hero">Registrujte se i rezervišite odmah</h2>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <main class="page-content">
+  <div class="card">
+    <div class="content">
+      <h2 class="title">Vikendice</h2>
+      <p class="copy">Negde biste na godišnji odmor? Rezervišite smeštaj u prelepoj vikendici po povoljnoj ceni.</p>
+      <a th:href="@{/OsnovniprikazVikendica}"><button class="btn">Pogledajte ponude</button></a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="content">
+      <h2 class="title">Brodovi</h2>
+      <p class="copy">Želite li da uživate u lepom danu na nekoj reci ili jezeru? Iznajmljivanje broda na dan nikad nije bilo lakše. </p>
+      <a th:href="@{/OsnovniprikazBrodova}"><button class="btn">Pogledajte ponude</button></a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="content">
+      <h2 class="title">Instruktori pecanja</h2>
+      <p class="copy">Hteli biste da naučite da pecate? Možda biste u avanturu u prirodi? Rezervišite termin sa jednim od naših instruktora već danas.</p>
+     <a th:href="@{/OsnovniprikazInstruktora}"><button class="btn">Pogledajte ponude</button></a>
+    </div>
+  </div>
+</main>
+</div>
+<div class="section bg">
+  <div class="container" id="root">
+    
+  </div>
+</div>
+
+
+<script src="/js/index.js"></script>
+</body>
+</html>

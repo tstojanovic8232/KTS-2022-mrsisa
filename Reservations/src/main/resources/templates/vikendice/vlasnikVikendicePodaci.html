@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Administrator</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/adminProfile.css}"
+	href="/css/adminProfile.css">
+<body>
+	<header role="banner">
+		<h1>Profil Vlasnika vikendice</h1>
+		<ul class="utilities">
+			<li class="user"><a th:href="@{/vikendicaVlasnik/my-profile}">Moji
+					podaci</a></li>
+			<li class="logout warn"><a th:href="@{/login}">Log out</a></li>
+		</ul>
+	</header>
+
+	<nav role="navigation">
+		<ul class="main">
+			<li class="preview"><a th:href="@{/vikendicaVlasnik/prikaziVikendice}">Moje vikendice
+					</a></li>
+			<li class="euro"><a th:href="@{/vikendicaVlasnik/pisanjeZalbe}">Pisanje žalbi na klijente
+					</a></li>
+			<li class="reports"><a th:href="@{/vikendicaVlasnik/izvjestaji}">Prikaz
+					izvestaja</a></li>
+		</ul>
+	</nav>
+
+	<main role="main">
+
+		<section class="panel important">
+			<table class="twothirds">
+				<tr>
+					<td>Ime</td>
+					<td th:text = "${admin.ime}">Ime</td>
+				</tr>
+				<tr>
+					<td>Prezime</td>
+					<td th:text = "${admin.prezime}">Prezime</td>
+				</tr>
+				<tr>
+					<td>Korisnicko ime</td>
+					<td th:text = "${admin.korisnickoIme}">Korisnicko ime</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td th:text = "${admin.email}">Email</td>
+				</tr>
+				<tr>
+					<td>Lozinka</td>
+					<td th:text = "${admin.lozinka}">Lozinka</td>
+				</tr>
+				<tr>
+					<td>Broj telefona</td>
+					<td th:text = "${admin.brojTel}">Broj telefona</td>
+				</tr>
+				<tr>
+					<td>Adresa</td>
+					<td th:text = "${admin.adresa}">Adresa</td>
+				</tr>
+				<tr>
+					<td>Grad</td>
+					<td th:text = "${admin.grad}">Grad</td>
+				</tr>
+				<tr>
+					<td>Drzava</td>
+					<td th:text = "${admin.drzava}">Drzava</td>
+				</tr>
+			</table>
+		</section>
+
+	</main>
+</body>
+</html>

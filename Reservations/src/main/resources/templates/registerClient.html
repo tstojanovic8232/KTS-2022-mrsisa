@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<title>Registracija klijenta</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" 
+          href="/css/register.css" th:href="@{/css/register.css}" >
+</head>
+<body>
+<div class="row">
+  <section class="section">
+    <header>
+      <h3>Registracija</h3>
+      <h4>Molimo vas unesite vaše podatke ispod</h4>
+    </header>
+    <main>
+      <form id="registration_form" th:action="@{/verify}" method="post">
+        <div class="form-item-double box-item">
+	        <div class="form-item ">
+	          <input type="text" name="firstName" id="firstName" placeholder="Ime" data-required>
+	          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+	        </div>
+	       	<div class="form-item">
+	          <input type="text" name="lastName" id="lastName" placeholder="Prezime" data-required>
+	          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+	        </div>
+        </div>
+        <div class="form-item box-item">
+          <input type="text" name="username" id="username" placeholder="Korisničko ime" data-required>
+          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+        </div>
+          <div class="form-item box-item">
+          <input type="password" name="password" id="password" placeholder="Lozinka" data-required>
+          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+        </div>
+        <div class="form-item box-item">
+          <input type="email" name="email" id="email" placeholder="Email" data-email data-required>
+          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+          <small class="errorEmail"><i class="fa fa-asterisk" aria-hidden="true"></i> email nije validan</small>
+        </div>
+        <div class="form-item box-item">
+          <input type="text" name="phone" id="phone" placeholder="Broj telefona" data-required data-number data-count="10">
+          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+          <small class="errorNum"><i class="fa fa-asterisk" aria-hidden="true"></i> mora biti broj</small>
+          <small class="errorChar"><i class="fa fa-asterisk" aria-hidden="true"></i> mora imati 10 cifara</small>
+        </div>
+        <div class="form-item box-item">
+          <input type="text" name="address" id="address" placeholder="Adresa" data-required>
+          <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+        </div>
+        <div class="form-item-double box-item">
+          <div class="form-item ">
+            <input type="text" name="city" id="city" placeholder="Grad" data-required>
+            <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+          </div>
+          <div class="form-item">
+            <input type="text" name="country" id="country" placeholder="Država" data-required>
+            <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> obavezno polje</small>
+          </div>
+        </div>
+        <div class="form-item">
+          <button id="submit" class="submit">Submit</button>
+        </div>
+      </form>
+    </main>
+    <footer>
+      <p>Već imate nalog? <a th:href="@{/login}">Ulogujte se ovde</a></p>
+    </footer>
+    <i class="wave"></i>
+  </section>
+</div>
+ <script  src="/js/register.js"></script>
+
+</body>
+</html>

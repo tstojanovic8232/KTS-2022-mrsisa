@@ -1,0 +1,139 @@
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head><meta charset="UTF-8"></meta>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link rel="stylesheet" th:href="@{/css/pocetna.css}"
+	href="/css/pocetna.css"></link>
+	<script>
+	var cijena = document.forms["unos"]["cena"].value;
+	var brojKreveta = document.forms["unos"]["brojKreveta"].value;
+	var brojSoba = document.forms["unos"]["brojSoba"].value;
+	function provjera_cijene() 
+	{
+		
+		
+		if (!parseFloat(document.forms["unos"]["cena"].value)) 
+		{
+			alert("Cijena mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)===-1) 
+		{
+			alert("Cijena mora biti pozitivan broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["brojSoba"].value)>-1 && 
+		Math.sign(document.forms["unos"]["brojKreveta"].value)>-1)
+		{
+			document.forms["unos"]["cena"].value=parseFloat(document.forms["unos"]["cena"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	function provjera_kreveta()
+	{
+				
+		if (!parseInt(document.forms["unos"]["brojKreveta"].value)) 
+		{
+			alert("Broj kreveta mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["brojKreveta"].value)===-1)
+		{
+			alert("Broj kreveta mora biti prirodan cijeli broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["brojSoba"].value)>-1 && 
+		Math.sign(document.forms["unos"]["brojKreveta"].value)>-1)
+		{
+			document.forms["unos"]["brojKreveta"].value=parseInt(document.forms["unos"]["brojKreveta"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	function provjera_soba()
+	{
+		
+		if (!parseInt(document.forms["unos"]["brojSoba"].value)) 
+		{
+
+			alert("Broj soba mora biti broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["brojSoba"].value)===-1)
+		{
+			alert("Broj soba mora biti prirodan cijeli broj!");
+			document.forms['unos']['izmijeni-dugme'].disabled = true;
+		}
+		else if(Math.sign(document.forms["unos"]["cena"].value)>-1 && 
+		Math.sign(document.forms["unos"]["brojSoba"].value)>-1 && 
+		Math.sign(document.forms["unos"]["brojKreveta"].value)>-1)
+		{
+			document.forms["unos"]["brojSoba"].value=parseInt(document.forms["unos"]["brojSoba"].value);
+			document.forms['unos']['izmijeni-dugme'].disabled = false;
+		}
+		else alert("Svi brojevi moraju biti pozitivni!");
+	}
+	
+	function dobavi_putanju_slike()
+	{
+			document.getElementById("naziv").value = document.getElementById("filepicker").value.substring(12);
+			document.getElementById("putanja").value = document.getElementById("filepicker").value;
+			console.log(document.getElementById("filepicker").value.substring(12));
+			console.log(document.getElementById("filepicker").value);
+			//console.log(document.getElementById("filepicker").value);
+			console.log(typeof(document.getElementById("filepicker")));
+	        //console.log($(this).val()); // This will print out the file path
+            //console.log(e.target.files[0]);
+	        
+	        
+	}
+	
+	function dobavi_putanju_slike2()
+	{
+			document.getElementById("naziv2").value = document.getElementById("filepicker2").value.substring(12);
+			document.getElementById("putanja2").value = document.getElementById("filepicker2").value;
+			console.log(document.getElementById("filepicker2").value.substring(12));
+			console.log(document.getElementById("filepicker2").value);
+			//console.log(document.getElementById("filepicker").value);
+			console.log(typeof(document.getElementById("filepicker2")));
+	        //console.log($(this).val()); // This will print out the file path
+            //console.log(e.target.files[0]);
+	        
+	        
+	}
+	</script>
+</head>
+<body>
+    <div class="p-3 py-5">
+       <div class="d-flex align-items-center mb-3">
+           <h4 class="text-left">Dodaj Vikendicu</h4>
+       </div>
+        <form enctype="multipart/form-data" th:object="${slika}" method="post" name="unos">
+        <div class="row mt-3 ">
+        <div class="col-md-7"><input readonly type="hidden" class="form-control" placeholder="Unesite ime" th:value="${vlasnikVikendice.ID}" name="ID"></input></div>
+            <div class="col-md-8"><label class="labels">Naziv</label><input type="text" class="form-control" placeholder="Unesite naziv" th:value="${vikendica.naziv}" name="naziv" required></input></div>
+            <div class="col-md-8"><label class="labels">Adresa</label><input type="text" class="form-control" placeholder="Unesite adresu" th:value="${vikendica.adresa}" name="adresa"></input></div>
+            <div class="col-md-8"><label class="labels">Broj Soba</label><input type="text" class="form-control" placeholder="Unesite broj soba" th:value="${vikendica.brojSoba}" name="brojSoba" onchange="provjera_soba()"></input></div>
+            <div class="col-md-8"><label class="labels">Broj Kreveta</label><input type="text" class="form-control" placeholder="Unesite broj kreveta" th:value="${vikendica.brojKreveta}" name="brojKreveta" onchange="provjera_kreveta()"></input></div>
+            <div class="col-md-8"><label class="labels">Cijena</label><input type="text" class="form-control" placeholder="Unesite cijenu" th:value="${vikendica.cena}" name="cena" onchange="provjera_cijene()"></input></div>
+            <div class="col-md-8"><label class="labels">Slika:</label><input type="file" class="form-control" placeholder="Unesite sliku" th:value="${vikendica.linkSlike}" name="slika" id="filepicker" onchange="dobavi_putanju_slike()" ></input></div>
+            <div class="col-md-8"><label class="labels">Slika unutrašnjosti:</label><input type="file" class="form-control" placeholder="Unesite sliku" th:value="${vikendica.linkInterijera}" name="slikaInterijera" id="filepicker2" onchange="dobavi_putanju_slike2()"></input></div>
+            <div class="col-md-8"><label class="labels">Pravila ponašanja</label><input type="text" class="form-control" placeholder="Unesite pravila ponasanja" th:value="${vikendica.pravilaPonasanja}" name="pravilaPonasanja"></input></div>
+            <div class="col-md-8"><label class="labels">Dodatne Usluge</label><input type="text" class="form-control" placeholder="Unesite dodatne usluge" th:value="${vikendica.dodatneUsluge}" name="dodatneUsluge"></input></div>
+            <div class="col-md-8"><label class="labels">Opis</label><input type="text" class="form-control" placeholder="Opisite vikendicu" th:value="${vikendica.opis}" name="opis"></input></div>
+       		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" name="nazivSlike" id="naziv"></input></div>
+       		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" id="putanja"></input></div>
+       		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" name="nazivSlike2" id="naziv2"></input></div>
+       		<div class="col-md-7"><input  type="hidden" class="form-control" placeholder="Unesite ime" value="" name="putanja2" id="putanja2"></input></div>
+<div class="mt-5 text-left"><button class="btn btn-primary profile-button" th:formaction="@{/vikendice/napravi/}+${vlasnikVikendice.ID}" type="submit" name="izmijeni-dugme">Dodaj Vikendicu</button>
+         </div>
+    </div></form>
+   </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head><meta charset="UTF-8"></meta>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link rel="stylesheet" th:href="@{/css/pocetna.css}"
+	href="/css/pocetna.css"></link>
+</head>
+<body>
+    <div class="p-3 py-5">
+       <div class="d-flex justify-content-md-center align-items-center mb-3">
+           <h1 align="left">Osnovni podaci o klijentu</h1>
+       </div>
+       <div><img height="200px" width="200px" th:src="${klijent.linkSlike}"></img></div>
+        <form>
+        <div class="row mt-3 ">
+            <div class="col-md-8"><label class="labels">Ime</label><input readonly type="text" class="form-control" placeholder="Unesite ime" th:value="${klijent.ime}" name="ime"></input></div>
+            <div class="col-md-8"><label class="labels">Prezime</label><input readonly type="text" class="form-control" placeholder="Unesite prezime" th:value="${klijent.prezime}" name="prezime"></input></div>
+            <div class="col-md-8"><label class="labels">Grad</label><input readonly type="text" class="form-control" placeholder="Unesite grad" th:value="${klijent.grad}" name="grad"></input></div>
+            <div class="col-md-8"><label class="labels">Država</label><input readonly type="text" class="form-control" placeholder="Unesite državu" th:value="${klijent.drzava}" name="drzava"></input></div>
+            <div class="col-md-8"><label class="labels">Broj telefona</label><input readonly type="text" class="form-control" placeholder="Unesite broj telefona" th:value="${klijent.brojTel}" name="brojTel"></input></div>
+            <div class="col-md-8"><label class="labels">Elektronska Pošta</label><input readonly type="text" class="form-control" placeholder="Unesite elektronsku poštu" th:value="${klijent.email}" name="email"></input></div>
+			<div class="col-md-8"><input readonly type="hidden" class="form-control" placeholder="Unesite ID" th:value="${vlasnikVikendice.ID}" name="vlasnikID"></input></div>
+			<div class="col-md-8"><input readonly type="hidden" class="form-control" placeholder="Unesite ID" th:value="${klijent.ID}" name="klijentID"></input></div>
+    </div>
+    </form>
+   </div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Profil instruktora</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/instruktorProfil.css" th:href="@{/css/instruktorProfil.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="hold">
+		<div class="header">
+			<div class="container">
+				<div id="logo">
+					<img alt="logo" th:src="${user.linkSlike}" height="90px" width="90px"
+						style="margin-bottom: 90px;">
+					<h3 style="float: right;">Instruktor</h3>
+				</div>
+
+				<ul class="nav">
+					<li><a th:href="@{/instruktor/}+${id}">Pocetna</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/istorija'}">Istorija rezervacija</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiPoslovanja'}">Izvestaji o poslovanju</a></li>
+					<li><a th:href="@{/instruktor/}+${id+'/izvestajiRezervacija'}">Izvestaji
+							za rezervacije</a></li>
+					<li><a th:href="@{/login}">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="panel important">
+	
+		<table id="hide" class="twothirds">
+			<tr>
+				<td><img height="200px" width="200px"
+					th:src="${user.linkSlike}"></img></td>
+				<td></td>
+			</tr>
+			<tr>
+					<td>Ime</td>
+					<td th:text = "${user.ime}">Ime</td>
+				</tr>
+				<tr>
+					<td>Prezime</td>
+					<td th:text = "${user.prezime}">Prezime</td>
+				</tr>
+				<tr>
+					<td>Korisnicko ime</td>
+					<td th:text = "${user.korisnickoIme}">Korisnicko ime</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td th:text = "${user.email}">Email</td>
+				</tr>
+				<tr>
+					<td>Broj telefona</td>
+					<td th:text = "${user.brojTel}">Broj telefona</td>
+				</tr>
+				<tr>
+					<td>Adresa</td>
+					<td th:text = "${user.adresa}">Adresa</td>
+				</tr>
+				<tr>
+					<td>Grad</td>
+					<td th:text = "${user.grad}">Grad</td>
+				</tr>
+				<tr>
+					<td>Drzava</td>
+					<td th:text = "${user.drzava}">Drzava</td>
+				</tr>
+			</table>
+			<div>
+				<button class="open-button" onclick="openForm()">Izmeni podatke</button>
+				<button class="open-button" onclick="passForm()">Promeni lozinku</button>
+				<button class="open-button" onclick="eraseForm()">Podnesi zahtev za brisanje</button>
+			</div>
+			<form class="form-container">
+			<table id="myForm" class="onethird">
+				<tr>
+					<td>Korisnicko ime</td>
+					<td> <input type="text" name="korisnickoIme" th:placeholder="${user.korisnickoIme}"></td>
+				</tr>
+				<tr>
+					<td>Ime</td>
+					<td> <input type="text" name="ime" th:placeholder="${user.ime}"></td>
+				</tr>
+				<tr>
+					<td>Prezime</td>
+					<td> <input type="text" name="prezime" th:placeholder="${user.prezime}"></td>
+				</tr>
+				<tr>
+					<td>Broj telefona</td>
+					<td> <input type="text" name="brojTel" th:placeholder="${user.brojTel}"></td>
+				</tr>
+				<tr>
+					<td>Adresa</td>
+					<td> <input type="text" name="adresa" th:placeholder="${user.adresa}"></td>
+				</tr>
+				<tr>
+					<td>Grad</td>
+					<td> <input type="text" name="grad" th:placeholder="${user.grad}"></td>
+				</tr>
+				<tr>
+					<td>Drzava</td>
+					<td> <input type="text" name="drzava" th:placeholder="${user.drzava}"></td>
+				</tr>
+				<tr>
+					<td><button class="btn" th:formaction="@{/instruktor/}+${id + '/profil/azuriraj'}"><i class="fa fa-check" aria-hidden="true"></i>	</button></td>
+					<td><button type="button" class="btn cancel" onclick="closeForm()"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+				</tr>
+			</table>
+			</form>
+			<form class="form-container" method="post">
+			<table id="passForm" class="onethird">
+				<tr>
+					<td>Stara lozinka</td>
+					<td><input id="staraLozinka" name="staraLozinka" type="password" required></td>
+				</tr>
+				<tr>
+					<td>Nova lozinka</td>
+					<td><input id="novaLozinka" name="novaLozinka" type="password" required></td>
+				</tr>
+				<tr>
+					<td>Ponovo ukucaj novu lozinku</td>
+					<td><input id="novaPonovo" name="novaPonovo" type="password" required></td>
+				</tr>
+				<tr>
+					<td><button id="lozinka" class="btn" th:formaction="@{/instruktor/}+${id + '/profil/promeniLozinku'}" onclick="validate()"><i class="fa fa-check" aria-hidden="true"></i>	</button></td>
+					<td><button type="button" class="btn cancel" onclick="closePassForm()"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+				</tr>
+			</table>
+			</form>
+			<form class="form-container" method="post">
+			<table id="eraseForm" class="twothirds">
+				<tr>
+					<td>Razlog za brisanje naloga</td>
+					<td><textarea name="razlog" rows="10" cols="50" required></textarea></td>
+				</tr>
+				<tr>
+					<td><button class="btn" th:formaction="@{/instruktor/}+${id + '/profil/brisiNalog'}"><i class="fa fa-check" aria-hidden="true"></i>	</button></td>
+					<td><button type="button" class="btn cancel" onclick="closeEraseForm()"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+				</tr>
+			</table>
+			</form>
+	</div>
+	
+<script>
+	
+function openForm() {
+	  document.getElementById("myForm").style.display = "block";
+	}
+
+function passForm() {
+	  document.getElementById("passForm").style.display = "block";
+	}
+
+function eraseForm() {
+	  document.getElementById("eraseForm").style.display = "block";
+	}
+
+	function closeForm() {
+	  document.getElementById("myForm").style.display = "none";
+	}
+	
+	function closePassForm() {
+		  document.getElementById("passForm").style.display = "none";
+		}
+	
+	function closeEraseForm() {
+		  document.getElementById("eraseForm").style.display = "none";
+		}
+</script>
+</body>
+</html>

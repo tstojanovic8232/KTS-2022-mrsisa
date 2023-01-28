@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" />
+  <title>Login/Registracija</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css' 
+  th:href='@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css}'>
+  <link rel="stylesheet" type="text/css" media="all" 
+          href="/css/style.css" th:href="@{/css/style.css}" >
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h2>Pridruzite nam se</h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form>
+			<h1>Napravite nalog</h1>
+			
+			<button class="role" th:formaction="@{/register-client}" name="client">Registruj se kao klijent</button>
+			<button class="role" th:formaction="@{/register-owner}" name="owner">Registruj se kao zakupodavac</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form th:action="@{/login-process}">
+			<h1>Log in</h1>
+			
+			<input type="text" placeholder="Korisnicko ime" name="username"/>
+			<input type="password" placeholder="Lozinka" name="password" />
+			<a href="#">Zaboravili ste lozinku?</a>
+			<button>Uloguj se</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Dobro dosli</h1>
+				<p>Unesite vase podatke</p>
+				<button class="ghost" id="signIn">Ulogujte se</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Pozdrav</h1>
+				<p>Unesite vase podatke</p>
+				<button class="ghost" id="signUp">Registrujte se</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+	  <script src="/js/script.js"></script>
+</body>
+</html>
