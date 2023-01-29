@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -238,6 +239,171 @@ public class UslugaServisTest {
     public void testDeleteById() {
         uslugaServis.deleteById(testId);
         verify(uslugaRepozitorijum, times(1)).deleteById(testId);
+    }
+
+    @Test
+    public void setTestUslugaSortCena() {
+
+        List<Usluga> usluge = new ArrayList<>();
+        Usluga usl1=new Usluga();
+        Usluga usl2=new Usluga();
+        Usluga usl3=new Usluga();
+        usl1.setID(1L);
+        usl1.setCena(300);
+        usl2.setID(2L);
+        usl2.setCena(200);
+        usl3.setID(3L);
+        usl3.setCena(100);
+
+        usluge.add(usl1);
+        usluge.add(usl2);
+        usluge.add(usl3);
+
+        uslugaRepozitorijum.save(usl3);
+        uslugaRepozitorijum.save(usl2);
+        uslugaRepozitorijum.save(usl1);
+        when(uslugaRepozitorijum.findAll(Sort.by(Sort.Direction.DESC, "cena"))).thenReturn(usluge);
+
+        List<Usluga> result = uslugaServis.UslugaSortCena();
+
+        assertEquals(usluge, result);
+        verify(uslugaRepozitorijum).findAll(Sort.by(Sort.Direction.DESC, "cena"));
+
+
+        for (int i = 0; i < result.size() - 1; i++) {
+            assertTrue(result.get(i).getCena() >= result.get(i + 1).getCena());
+        }
+    }
+    @Test
+    public void testUslugaSortNaziv() {
+
+        List<Usluga> usluge = new ArrayList<>();
+        Usluga usl1=new Usluga();
+        Usluga usl2=new Usluga();
+        Usluga usl3=new Usluga();
+        usl1.setID(1L);
+        usl1.setNaziv("A");
+        usl2.setID(2L);
+        usl2.setNaziv("B");
+        usl3.setID(3L);
+        usl3.setNaziv("C");
+
+        usluge.add(usl1);
+        usluge.add(usl2);
+        usluge.add(usl3);
+
+        uslugaRepozitorijum.save(usl3);
+        uslugaRepozitorijum.save(usl2);
+        uslugaRepozitorijum.save(usl1);
+        assertNotNull(uslugaRepozitorijum.findAll());
+        when(uslugaRepozitorijum.findAll(Sort.by(Sort.Direction.ASC, "naziv"))).thenReturn(usluge);
+
+       Usluga u=new Usluga();
+
+        List<Usluga> result = uslugaServis.UslugaSortNaziv();
+
+        assertEquals(usluge, result);
+        verify(uslugaRepozitorijum).findAll(Sort.by(Sort.Direction.ASC, "naziv"));
+
+
+        for (int i = 0; i < result.size() - 1; i++) {
+            assertTrue(result.get(i).getNaziv().compareTo(result.get(i + 1).getNaziv()) <= 0);
+        }
+    }
+
+    @Test
+    public void TestUslugaSortAdresa() {
+
+
+        List<Usluga> usluge = new ArrayList<>();
+        Usluga usl1=new Usluga();
+        Usluga usl2=new Usluga();
+        Usluga usl3=new Usluga();
+        usl1.setID(1L);
+        usl1.setAdresa("ADI ENDREA 33");
+        usl2.setID(2L);
+        usl2.setAdresa("BDI ENDREA 33");
+        usl3.setID(3L);
+        usl3.setAdresa("CDI ENDREA 33");
+
+        usluge.add(usl1);
+        usluge.add(usl2);
+        usluge.add(usl3);
+
+        uslugaRepozitorijum.save(usl3);
+        uslugaRepozitorijum.save(usl2);
+        uslugaRepozitorijum.save(usl1);
+        when(uslugaRepozitorijum.findAll(Sort.by(Sort.Direction.ASC, "adresa"))).thenReturn(usluge);
+
+        Usluga u =new Usluga();
+
+        List<Usluga> result = uslugaServis.UslugaSortAdresa();
+
+        assertEquals(usluge, result);
+        verify(uslugaRepozitorijum).findAll(Sort.by(Sort.Direction.ASC, "adresa"));
+
+
+        for (int i = 0; i < result.size() - 1; i++) {
+            assertTrue(result.get(i).getAdresa().compareTo(result.get(i + 1).getAdresa()) <= 0);
+        }
+    }
+
+    @Test
+    public void testUslugaPretraga() {
+
+        List<Usluga> expectedList = new ArrayList<Usluga>();
+        Usluga usl1=new Usluga();
+        usl1.setAdresa("address1");
+        usl1.setNaziv("type1");
+        usl1.setCena(100);
+
+        Usluga usl2=new Usluga();
+        usl2.setAdresa("address2");
+        usl2.setNaziv("type2");
+        usl2.setCena(200);
+
+        expectedList.add(usl1);
+        expectedList.add(usl2);
+        when(uslugaRepozitorijum.findAll()).thenReturn(expectedList);
+        uslugaRepozitorijum.save(usl1);
+        uslugaRepozitorijum.save(usl2);
+
+
+
+        List<Usluga> actualList = uslugaServis.UslugaPretraga("address1");
+        assertEquals(usl1, actualList.get(0));
+
+        actualList = uslugaServis.UslugaPretraga("200");
+        assertEquals(usl2, actualList.get(0));
+
+        actualList = uslugaServis.UslugaPretraga("Type");
+        assertEquals(expectedList, actualList);
+
+    }
+
+    @Test
+    public void testUslFilter() {
+       Usluga usl1=new Usluga();
+        usl1.setNaziv("type1");
+        usl1.setAdresa("address1");
+
+        Usluga usl2=new Usluga();
+        usl2.setNaziv("type2");
+        usl2.setAdresa("address2");
+
+        uslugaRepozitorijum.save(usl1);
+        uslugaRepozitorijum.save(usl2);
+        List<Usluga> expectedList = new ArrayList<Usluga>();
+        expectedList.add(usl1);
+        expectedList.add(usl2);
+        when(uslugaRepozitorijum.findAll()).thenReturn(expectedList);
+        List<Usluga> filteredList = uslugaServis.UslFilter("address2");
+        assertEquals(1, filteredList.size());
+        assertEquals("type2", filteredList.get(0).getNaziv());
+        assertEquals("address2", filteredList.get(0).getAdresa());
+
+        filteredList = uslugaServis.UslFilter("svi");
+        assertEquals(2, filteredList.size());
     }
 
 }
