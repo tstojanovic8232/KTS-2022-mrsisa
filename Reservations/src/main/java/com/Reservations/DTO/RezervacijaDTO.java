@@ -20,8 +20,12 @@ public class RezervacijaDTO {
 		this.maxOsoba = maxOsoba;
 		
 	}
-	
-	
+
+    public RezervacijaDTO() {
+
+    }
+
+
 	public String getDatum() {
 		return datum;
 	}

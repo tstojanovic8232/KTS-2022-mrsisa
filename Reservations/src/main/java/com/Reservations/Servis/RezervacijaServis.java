@@ -32,7 +32,7 @@ import com.Reservations.Repozitorijumi.RezervacijaRepozitorijum;
 public class RezervacijaServis {
 
 	@Autowired
-	private RezervacijaRepozitorijum rezervacijaRepozitorijum;
+	public RezervacijaRepozitorijum rezervacijaRepozitorijum;
 	@Autowired
 	private UslugaServis uslugaServis;
 
